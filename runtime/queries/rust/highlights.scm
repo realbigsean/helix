@@ -13,6 +13,24 @@
 ; Primitives
 ; ---
 
+; ----------------
+; Sean's additions
+; ----------------
+
+(constrained_type_parameter 
+  left: (type_identifier) @label)
+
+((type_identifier) @keyword 
+ (#match? @keyword "Self")) 
+
+((type_identifier) @label (#match? @label "^[A-Z]$"))
+
+((line_comment) @text.note (#match? @text.note "^[\/][\/][\/|!]"))
+
+(attribute_item
+  (attribute
+   ((identifier) @function (#match? @function "^[a-z]"))))
+
 (escape_sequence) @constant.character.escape
 (primitive_type) @type.builtin
 (boolean_literal) @constant.builtin.boolean
@@ -62,12 +80,14 @@
 [
   "("
   ")"
-  "["
-  "]"
   "{"
   "}"
-  "#"
 ] @punctuation.bracket
+[
+  "["
+  "]"
+  "#"  
+] @punctuation.special
 (type_arguments
   [
     "<"
@@ -210,18 +230,18 @@
 
 (match_pattern
     (scoped_identifier
-      name: (identifier) @constructor))
+      name: (identifier) @type.enum.variant))
 (tuple_struct_pattern
     type: [
-      ((identifier) @constructor)
+      ((identifier) @type.enum.variant)
       (scoped_identifier  
-        name: (identifier) @constructor)
+        name: (identifier) @type.enum.variant)
       ])
 (struct_pattern
   type: [
-    ((type_identifier) @constructor)
+    ((type_identifier) @type.enum.variant)
     (scoped_type_identifier
-      name: (type_identifier) @constructor)
+      name: (type_identifier) @type.enum.variant)
     ])
 
 ; ---
