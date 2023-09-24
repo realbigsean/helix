@@ -1,7 +1,6 @@
 use crate::{
     align_view,
     annotations::diagnostics::InlineDiagnosticsConfig,
-    clipboard::{get_clipboard_provider, ClipboardProvider},
     document::{DocumentSavedEventFuture, DocumentSavedEventResult, Mode, SavePoint},
     graphics::{CursorKind, Rect},
     info::Info,
@@ -385,6 +384,7 @@ pub struct LspConfig {
     /// Also called "error lens"-style diagnostics, in reference to the popular VSCode extension.
     pub inline_diagnostics: InlineDiagnosticsConfig,
     pub display_diagnostic_message: bool,
+    pub copilot_auto: bool,
 }
 
 impl Default for LspConfig {
@@ -398,7 +398,8 @@ impl Default for LspConfig {
             snippets: true,
             goto_reference_include_declaration: true,
             inline_diagnostics: InlineDiagnosticsConfig::default(),
-            display_diagnostic_message: false,
+            display_diagnostic_message: true,
+            copilot_auto: true,
         }
     }
 }
